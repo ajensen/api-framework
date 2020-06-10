@@ -1,0 +1,14 @@
+RewriteEngine on
+
+RewriteRule ^(.*)\.(json|xml|csv|txt|printr)$ endpoint.php?api_request=$1&api_response_type=$2
+
+<Files ~ "\.ini$">
+Order allow,deny
+Deny from all
+</Files>
+
+Header set Access-Control-Allow-Origin "*"
+
+ErrorDocument 500 https://andrewmichaeljensen.com/404
+ErrorDocument 404 https://andrewmichaeljensen.com/404
+#ErrorDocument 401 https://andrewmichaeljensen.com/404
