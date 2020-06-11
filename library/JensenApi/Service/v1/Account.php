@@ -61,7 +61,7 @@ class JensenApi_Service_Account extends Api_Service_Base {
 	 */
 	public function settings($params) {
 
-		$userID                           	= ( isset($params['userID']) ) ? (int)$params['userID'] : false;
+		$userID								= ( isset($params['userID']) ) ? (int)$params['userID'] : false;
 
 		if ( !$userID ) {
 			$this->code 					= 417;
@@ -107,9 +107,9 @@ class JensenApi_Service_Account extends Api_Service_Base {
 	public function update_attribute($params) {
 
 
-		$userID                           	= ( isset($params['userID']) ) ? (int)$params['userID'] : false;
-		$attr                           	= ( isset($params['attr']) ) ? $params['attr'] : false;
-		$entry                           	= ( isset($params['entry']) ) ? $params['entry'] : false;
+		$userID								= ( isset($params['userID']) ) ? (int)$params['userID'] : false;
+		$attr								= ( isset($params['attr']) ) ? $params['attr'] : false;
+		$entry								= ( isset($params['entry']) ) ? $params['entry'] : false;
 
 		if ( !$userID ) {
 			$this->code 					= 417;
@@ -146,9 +146,9 @@ class JensenApi_Service_Account extends Api_Service_Base {
 	 */
 	public function update_setting($params) {
 
-		$userID                           	= ( isset($params['userID']) ) ? (int)$params['userID'] : false;
-		$key                           		= ( isset($params['key']) ) ? $params['key'] : false;
-		$value                           	= ( isset($params['val']) ) ? $params['val'] : false;
+		$userID								= ( isset($params['userID']) ) ? (int)$params['userID'] : false;
+		$key								= ( isset($params['key']) ) ? $params['key'] : false;
+		$value								= ( isset($params['val']) ) ? $params['val'] : false;
 
 		if ( !$userID ) {
 			$this->code 					= 417;
@@ -184,9 +184,9 @@ class JensenApi_Service_Account extends Api_Service_Base {
 	 */
 	public function update_pass($params) {
 
-		$userID                           	= ( isset($params['userID']) ) ? (int)$params['userID'] : false;
-		$old_pass                           = ( isset($params['old_pass']) ) ? $params['old_pass'] : false;
-		$new_pass                           = ( isset($params['new_pass']) ) ? $params['new_pass'] : false;
+		$userID								= ( isset($params['userID']) ) ? (int)$params['userID'] : false;
+		$old_pass							= ( isset($params['old_pass']) ) ? $params['old_pass'] : false;
+		$new_pass							= ( isset($params['new_pass']) ) ? $params['new_pass'] : false;
 
 		if ( !$userID ) {
 			$this->code 					= 417;
@@ -223,8 +223,8 @@ class JensenApi_Service_Account extends Api_Service_Base {
 	 */
 	public function photo($params) {
 
-		$userID                           	= ( isset($params['userID']) ) ? (int)$params['userID'] : false;
-		$photo                      		= ( isset($params['photo']) ) ? $params['photo'] : false;
+		$userID								= ( isset($params['userID']) ) ? (int)$params['userID'] : false;
+		$photo					  			= ( isset($params['photo']) ) ? $params['photo'] : false;
 
 		if ( !$userID ) {
 			$this->code 					= 417;
@@ -236,12 +236,12 @@ class JensenApi_Service_Account extends Api_Service_Base {
 			return 3;
 		}
 
-    	$User 								= new Account\User($this->_CONN, $this->_REDIS, $userID);
+		$User 								= new Account\User($this->_CONN, $this->_REDIS, $userID);
 
-    	$update 							= $User->update_user_photo($photo);
+		$update 							= $User->update_user_photo($photo);
 
-    	$results 							= $update ? 1 : 2;
-    	
+		$results 							= $update ? 1 : 2;
+		
 		$User 								= null;
 
 		$this->code 						= 200;
@@ -257,31 +257,31 @@ class JensenApi_Service_Account extends Api_Service_Base {
 	 */
 	public function photo_rotate($params) {
 
-		$userID                           	= ( isset($params['userID']) ) ? (int)$params['userID'] : false;
+		$userID								= ( isset($params['userID']) ) ? (int)$params['userID'] : false;
 
 		if ( !$userID ) {
 			$this->code 					= 417;
 			return 0;
 		}
 
-	    $User               				= new Account\User($this->_CONN, $this->_REDIS, $userID);
+		$User								= new Account\User($this->_CONN, $this->_REDIS, $userID);
 
-	    $user_photo             			= $User->get_user_photo();
+		$user_photo			 				= $User->get_user_photo();
 
-	    if ( !$user_photo ) {
-	    	$User 							= null;
-	    	$this->code 					= 417;
-	        return 2;
-	    }
+		if ( !$user_photo ) {
+			$User 							= null;
+			$this->code 					= 417;
+			return 2;
+		}
 
-	    $Upload                 			= new Core\Upload($this->_CONN, $this->_REDIS, $userID);
-    
-	    $image                  			= IQ_ROOT . DS . $user_photo;
-    
-    	$outcome                			= $Upload->rotate_image($image, 90);
+		$Upload				 				= new Core\Upload($this->_CONN, $this->_REDIS, $userID);
+	
+		$image				  				= APP_PATH . DS . $user_photo;
+	
+		$outcome							= $Upload->rotate_image($image, 90);
 
-    	$results 							= ( $outcome ) ? 1 : 3;
-    	
+		$results 							= ( $outcome ) ? 1 : 3;
+		
 		$User 								= null;
 		$Upload 							= null;
 

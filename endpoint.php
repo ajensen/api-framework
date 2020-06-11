@@ -39,4 +39,4 @@ try {
 
 }
 
-require_once SITE_ROOT.DS.'close.php';
+require_once SITE_PATH . DS . 'close.php';
