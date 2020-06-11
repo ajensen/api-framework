@@ -37,10 +37,10 @@ class Api_Request {
 	 * @var string
 	 */
 	private $_params = array(
-								"version" 	=> "", 
-								"service" 	=> "",
-								"method"	=> ""
-							);
+				"version" 	=> "", 
+				"service" 	=> "",
+				"method"	=> ""
+			);
 	
 
 	/**
@@ -56,16 +56,12 @@ class Api_Request {
 	 */
 	public function __construct($endpoint_url=null) {
 
-		$endpoint_url 							= $endpoint_url ?? $this->url();
+		$endpoint_url 								= $endpoint_url ?? $this->url();
 
 		// Ensure that the endpoint url has no trailing/prefix slash
 		
-		$this->_endpoint_url 					= $endpoint_url;
-		//$this->_endpoint_path 				= str_replace($this->url(), "", $endpoint_url);
-
-		//error_log($this->url());
-		//error_log($this->_endpoint_path);
-
+		$this->_endpoint_url 						= $endpoint_url;
+		//$this->_endpoint_path 					= str_replace($this->url(), "", $endpoint_url);
 
 		// Check if a valid request
 		if ( !isset($_GET['api_request']) ) {
@@ -73,18 +69,18 @@ class Api_Request {
 			exit();
 		}
 
-		$_SERVER["REQUEST_URI"] 				= str_replace($endpoint_url, "", $this->url() . $_SERVER["REQUEST_URI"]);
-		$_SERVER["REQUEST_URI"] 				= str_replace(array("%2f", "%2F", "%252f", "%252F"), "--slash--", $_SERVER["REQUEST_URI"]);
-		$extension_pos 							= strrpos($_SERVER["REQUEST_URI"], ".");
-		$_SERVER["REQUEST_URI"] 				= substr($_SERVER["REQUEST_URI"], 0, $extension_pos);
+		$_SERVER["REQUEST_URI"] 					= str_replace($endpoint_url, "", $this->url() . $_SERVER["REQUEST_URI"]);
+		$_SERVER["REQUEST_URI"] 					= str_replace(array("%2f", "%2F", "%252f", "%252F"), "--slash--", $_SERVER["REQUEST_URI"]);
+		$extension_pos 								= strrpos($_SERVER["REQUEST_URI"], ".");
+		$_SERVER["REQUEST_URI"] 					= substr($_SERVER["REQUEST_URI"], 0, $extension_pos);
 		
-		$this->_url_data 						= explode("/", trim($_SERVER["REQUEST_URI"], "/"));
+		$this->_url_data 							= explode("/", trim($_SERVER["REQUEST_URI"], "/"));
 		
 		// Decode url parts
-		$this->_url_data 						= array_map(array($this, 'urlDecode'), $this->_url_data);
+		$this->_url_data 							= array_map(array($this, 'urlDecode'), $this->_url_data);
 		
 		// Set request method
-		$this->method 							= $_SERVER['REQUEST_METHOD'];
+		$this->method 								= $_SERVER['REQUEST_METHOD'];
 		
 	}
 
@@ -163,35 +159,32 @@ class Api_Request {
 	public function analyze() {
 		
 		// Set data
-        $this->files 									= $_FILES; 
+		$this->files 									= $_FILES; 
 		
-        // Loop through url data and match with position variables
-        $counter = 0;
+		// Loop through url data and match with position variables
+		$counter = 0;
 
-        foreach ( $this->_params as $key => $value ) {
-        
-        	$this->_params[$key] 						= isset($this->_url_data[$counter]) ? $this->_url_data[$counter] : "";
+		foreach ( $this->_params as $key => $value ) {
+		
+			$this->_params[$key] 						= isset($this->_url_data[$counter]) ? $this->_url_data[$counter] : "";
 			$counter++;
-        
-        }
-        
-        $url_data_num 									= count($this->_url_data);
-        
-        for ( $i=$counter; $i < $url_data_num; $i+=2 ) {
+		
+		}
+		
+		$url_data_num 									= count($this->_url_data);
+		
+		for ( $i=$counter; $i < $url_data_num; $i+=2 ) {
 
-        	$this->_params[ $this->_url_data[$i] ] 		= isset( $this->_url_data[($i+1)] ) ? $this->_url_data[($i+1)] : "";
-        
-        }
-
-        // $shat 											= json_encode($this->_params);
-        // error_log($shat);
-        
-        // Merge GET in params
-        $this->_params 									= array_merge($this->_params, $_GET);
-        
-        // Merge POST in params
-        $this->_params 									= array_merge($this->_params, $_POST);
-        
+			$this->_params[ $this->_url_data[$i] ] 		= isset( $this->_url_data[($i+1)] ) ? $this->_url_data[($i+1)] : "";
+		
+		}
+		
+		// Merge GET in params
+		$this->_params 									= array_merge($this->_params, $_GET);
+		
+		// Merge POST in params
+		$this->_params 									= array_merge($this->_params, $_POST);
+		
 	}
 	
 

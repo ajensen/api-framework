@@ -62,7 +62,7 @@ class JensenApi_Service_Email extends Api_Service_Base {
 
 			if ( $reqData = @file_get_contents('php://input') ) {
 
-				$req 								= json_decode($reqData,true);
+				$req 							= json_decode($reqData,true);
 
 			}
 
@@ -76,24 +76,24 @@ class JensenApi_Service_Email extends Api_Service_Base {
 			) throw new Api_Error('Invalid', 'Missing Required Parameter(s)', 400);
 
 
-			$to_email       						= $req['to_email'];
-			$to_name        						= $req['to_name'] ?? 'Unknown Name';
-			$sender_email   						= $req['sender'];
-			$subject        						= $req['subject'];
-			$msg            						= $req['msg'];
-			$bcc            						= $req['bcc'] ?? [];
-			$templateID     						= $req['template'] ?? null;
+			$to_email   						= $req['to_email'];
+			$to_name							= $req['to_name'] ?? 'Unknown Name';
+			$sender_email   					= $req['sender'];
+			$subject							= $req['subject'];
+			$msg								= $req['msg'];
+			$bcc								= $req['bcc'] ?? [];
+			$templateID	 						= $req['template'] ?? null;
 
 			// send email notification here that process has been started
-			$Email 									= new Messaging\Email($this->_CONN, $this->_REDIS, 1);
+			$Email 								= new Messaging\Email($this->_CONN, $this->_REDIS, 1);
 
 			if ( !empty($templateID) ) $Email->setTemplateID($templateID);
 
 			// append bcc if used
 			foreach ( $req['bcc'] as $v ) {
 				
-				$bcc_name 							= $v['name'] ?? null;
-				$bcc_email 							= $v['email'] ?? null;
+				$bcc_name 						= $v['name'] ?? null;
+				$bcc_email 						= $v['email'] ?? null;
 
 				if ( $bcc_email === null ) continue;
 
@@ -102,12 +102,12 @@ class JensenApi_Service_Email extends Api_Service_Base {
 			}
 
 			// wrap html template
-			$body 									= $Email->build_message($subject,$msg);
+			$body 								= $Email->build_message($subject,$msg);
 
 			// send email via sendgrid account
 			$Email->sendgrid($to_email, $to_name, $sender_email, 'Jensen Info Email', $subject, $body);
 
-			$this->code 							= 201;
+			$this->code 						= 201;
 
 			return;
 
@@ -131,7 +131,7 @@ class JensenApi_Service_Email extends Api_Service_Base {
 
 			if ( $reqData = @file_get_contents('php://input') ) {
 
-				$req                                = json_decode($reqData,true);
+				$req							= json_decode($reqData,true);
 
 			}
 
@@ -143,32 +143,32 @@ class JensenApi_Service_Email extends Api_Service_Base {
 			if ( $maskedID === 0 ) return;
 
 			$recipient = [
-				'to_email'  						=> $req['to_email'],
-				'to_name'   						=> $req['to_name']
+				'to_email'  					=> $req['to_email'],
+				'to_name'   					=> $req['to_name']
 			];
 
-			$bcc 									= [];
+			$bcc 								= [];
 
 			$bcc[] = [
-				'name'  							=> 'Andrew Jensen',
-				'email' 							=> 'andrew@andrewmichaeljensen.com'
+				'name'  						=> 'Andrew Jensen',
+				'email' 						=> 'andrew@andrewmichaeljensen.com'
 			];
 
 			if ( isset($req['bcc']) && !empty($req['bcc']) ) {
 
-				$bcc 								= array_merge($bcc, $req['bcc']);
+				$bcc 							= array_merge($bcc, $req['bcc']);
 
 			}
 
-			$replace 								= $req['replace'] ?? null;
+			$replace 							= $req['replace'] ?? null;
 
-			$Notifications 							= new Messaging\Notifications($this->_CONN, $this->_REDIS, 0);
+			$Notifications 						= new Messaging\Notifications($this->_CONN, $this->_REDIS, 0);
 
 			$Notifications->initDynoDBs($maskedID);
 
 
 			if ( !$Notifications->sendNotificationEmail((int) $req['notificationID'], $recipient, $replace, $bcc) ) {
-				throw new Api_Error('Invalid', 'Invalid Request', 400);                
+				throw new Api_Error('Invalid', 'Invalid Request', 400);
 			}
 
 			$this->code = 201;

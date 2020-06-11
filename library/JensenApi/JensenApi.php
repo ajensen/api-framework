@@ -17,9 +17,9 @@ class JensenApi extends Api {
 	 */
 	protected function getServicePath($service = '') {
 
-		$api_path 							= PATH . DS . $this->config['custom_path'];
+		$api_path 						= PATH . DS . $this->config['custom_path'];
 
-		$params 							= $this->request->getParams();
+		$params 						= $this->request->getParams();
 
 		return $api_path . DS . "Service" . DS . str_replace(".", "_", $params['version']);
 
