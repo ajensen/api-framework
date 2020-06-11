@@ -47,23 +47,19 @@ SQL files supporting this deployment have not yet been added to this repository
 
 ```
 
-## Built With
-
-* Awesomeness!
-
-## Contributing
-
-* No additional contributors
-
 ## Versioning
 
 * 0.1
 * 0.2 - future version - Add RabbitMQ (open source message broker) https://www.rabbitmq.com/download.html
-*	  				   - Add load balancing Queue class(es)
+	  				   - Add load balancing Queue class(es)
 
 ## Authors
 
-* **Andrew Jensen** - *Initial work* - [ajensen](https://github.com/ajensen)
+* **Andrew Jensen** - [ajensen](https://github.com/ajensen)
+
+## Contributing
+
+* No additional contributors
 
 ## License
 
@@ -72,3 +68,7 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 ## Acknowledgments
 
 * Hat tip to AndrewMichaelJensen.com
+
+## Built With
+
+* Awesomeness!
