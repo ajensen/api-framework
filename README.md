@@ -50,8 +50,6 @@ SQL files supporting this deployment have not yet been added to this repository
 ## Versioning
 
 * 0.1
-* 0.2 - future version - Add RabbitMQ (open source message broker) https://www.rabbitmq.com/download.html
-* 0.2 - future version - Add load balancing Queue class(es)
 
 ## Authors
 
