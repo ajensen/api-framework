@@ -100,21 +100,21 @@ class JensenApi_Service_Session extends Api_Service_Base {
 	public function enter($params) {
 
 
-		$email                           		= ( isset($params['email']) ) ? $params['email'] : false;
-		$password                               = ( isset($params['password']) ) ? $params['password'] : false;
-		$remember_me 							= ( isset($params['remember_me']) ) ? $params['remember_me'] : 0;
+		$email						   		= ( isset($params['email']) ) ? $params['email'] : false;
+		$password							= ( isset($params['password']) ) ? $params['password'] : false;
+		$remember_me 						= ( isset($params['remember_me']) ) ? $params['remember_me'] : 0;
 
-		$Session 								= new Core\Session($this->_CONN, $this->_REDIS);
+		$Session 							= new Core\Session($this->_CONN, $this->_REDIS);
 		
 		$Session->setEmail($email);
 		
 		$Session->setPassword($password);
 
-		$results 								= $Session->email_login();
+		$results 							= $Session->email_login();
 
 		if ( $results ) $Session->set_cookie($remember_me);
 
-		$Session 								= null;
+		$Session 							= null;
 
 		return ( $results ) ? $results : 0;
 
@@ -129,20 +129,20 @@ class JensenApi_Service_Session extends Api_Service_Base {
 	public function token($params) {
 
 
-		$userID                           		= ( isset($params['id']) ) ? $params['id'] : false;
-		$app_key                 				= ( isset($params['app_key']) ) ? $params['app_key'] : false;
+		$userID						   		= ( isset($params['id']) ) ? $params['id'] : false;
+		$app_key				 			= ( isset($params['app_key']) ) ? $params['app_key'] : false;
 
-		$Session 								= new Core\Session($this->_CONN, $this->_REDIS);
+		$Session 							= new Core\Session($this->_CONN, $this->_REDIS);
 		
 		$Session->setUserID($userID);
 		
 		$Session->setAppKey($app_key);
 
-		$outcome 								= $Session->check_for_app_user_token(12);
+		$outcome 							= $Session->check_for_app_user_token(12);
 
-		$results 								= ( $outcome ) ? $Session->getToken() : 0;
+		$results 							= ( $outcome ) ? $Session->getToken() : 0;
 
-		$Session 								= null;
+		$Session 							= null;
 
 		return $results;
 

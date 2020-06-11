@@ -59,11 +59,11 @@ set_include_path('.' . PATH_SEPARATOR . './library/JensenApi' . PATH_SEPARATOR .
 $current_dir 						= str_replace('\\', '/', dirname(__FILE__));
 $last_slash_pos 					= strrpos($current_dir, '/');
 
-defined('PATH') 					? null : define('PATH', substr($current_dir, 0, $last_slash_pos) . DS . 'library');
-defined('PATH_API') 				? null : define('PATH_API', PATH . DS.'Api');
-defined('PATH_API_HOOK') 			? null : define('PATH_API_HOOK', PATH_API . DS.'Hook');
-defined('PATH_API_SERVICE') 		? null : define('PATH_API_SERVICE', PATH_API . DS.'Service');
-defined('PATH_API_PARSER') 			? null : define('PATH_API_PARSER', PATH_API . DS.'Parser');
+defined('PATH')						? null : define('PATH', substr($current_dir, 0, $last_slash_pos) . DS . 'library');
+defined('PATH_API')					? null : define('PATH_API', PATH . DS.'Api');
+defined('PATH_API_HOOK')			? null : define('PATH_API_HOOK', PATH_API . DS.'Hook');
+defined('PATH_API_SERVICE')			? null : define('PATH_API_SERVICE', PATH_API . DS.'Service');
+defined('PATH_API_PARSER')			? null : define('PATH_API_PARSER', PATH_API . DS.'Parser');
 
 include("library/JensenApi/JensenApi.php");
 include("library/Json/Encoder.php");

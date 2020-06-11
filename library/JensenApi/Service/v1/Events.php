@@ -24,9 +24,9 @@ class JensenApi_Service_Events extends Api_Service_Base {
 	public function __construct($api) {
 
 		parent::__construct($api);
-        //call this to establish proper connectections
-        //do not use if your route does not require db connections
-        $this->connect();
+		//call this to establish proper connectections
+		//do not use if your route does not require db connections
+		$this->connect();
 		
 		// Set request methods
 		$this->addAllowedMethod("execute", Api_Request::METHOD_POST);
@@ -55,7 +55,7 @@ class JensenApi_Service_Events extends Api_Service_Base {
 	public function log_event($params) {
 
 
-		$remoteIP       						= ( isset($_SERVER['REMOTE_ADDR']) ) ? $_SERVER['REMOTE_ADDR'] : '';
+		$remoteIP	   							= ( isset($_SERVER['REMOTE_ADDR']) ) ? $_SERVER['REMOTE_ADDR'] : '';
 
 		if ( !(isset($params['event_url'])) ) {
 

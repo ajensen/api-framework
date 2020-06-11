@@ -109,8 +109,6 @@ class JensenApi_Service_Buckets extends Api_Service_Base {
 
 		$new_file_name 					= ( isset($params['new_name']) ) ? $params['new_name'] : '';
 
-		//$meta_data 					= ( isset($params['meta_data']) ) ? $params['meta_data'] : '';
-
 		$result 						= $AwsBuckets->uploadFile($file_name, $new_file_name);
 
 		$this->code 					= 200;
